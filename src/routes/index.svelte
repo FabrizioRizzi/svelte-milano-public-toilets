@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte';
+	import Toilet from '$lib/Toilet.svelte';
 	import type { PublicToilet } from 'src/interfaces';
 
 	let toilets: PublicToilet[];
@@ -19,8 +20,6 @@
 
 	loadJSON();
 
-	let promise = loadJSON();
-
 	function handleClick() {
 		if (municipio) {
 			filteredToilets = toilets.filter((a) => a.properties.MUNICIPIO === municipio.toString());
@@ -36,12 +35,12 @@
 
 <main>
 	<Header />
-	<input type="number" min=1 max=9 bind:value={municipio} />
-	<button on:click={handleClick}>Refresh</button>
+	<input type="number" min="1" max="9" bind:value={municipio} />
+	<button on:click={handleClick}>Cerca Municipio</button>
 	{#if toilets}
 		<ul>
 			{#each filteredToilets as toilet}
-				<li>{toilet.properties.VIA + toilet.properties.LOCALITA}</li>
+				<Toilet {toilet} />
 			{/each}
 		</ul>
 	{/if}

@@ -5,7 +5,7 @@
 <style>
   .header {
     padding: 20px;
-    background-color: #ff3e00;
+    background-color: #ff3e00; /* Tribute to Svelte */
     margin-bottom: 10px;
   }
 </style>
