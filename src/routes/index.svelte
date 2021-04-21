@@ -9,7 +9,7 @@
 
 	const loadJSON = async () => {
 		try {
-			const res = await fetch('static/data/servizi_igienici_pubblici.geojson');
+			const res = await fetch('http://localhost:9090/https://dati.comune.milano.it/dataset/b36a93df-83fc-4966-babb-e415c47d3ac7/resource/ffd34707-efeb-491b-96c9-c43ef31295ec/download/ds630_servizi_igienici_pubblici_final.geojson');
 			const json = await res.json();
 			toilets = json.features;
 			filteredToilets = json.features;

@@ -6,13 +6,17 @@
 		"build": "svelte-kit build",
 		"start": "svelte-kit start",
 		"lint": "prettier --check . && eslint --ignore-path .gitignore .",
-		"format": "prettier --write ."
-	},
+		"format": "prettier --write .",
+    "proxy": "cors-proxy-server",
+    "devWithProxy": "concurrently 'svelte-kit dev' 'cors-proxy-server'"
+  },
 	"devDependencies": {
 		"@sveltejs/adapter-node": "next",
 		"@sveltejs/kit": "next",
 		"@typescript-eslint/eslint-plugin": "^4.19.0",
 		"@typescript-eslint/parser": "^4.19.0",
+		"concurrently": "^6.0.2",
+		"cors-proxy-server": "^1.0.2",
 		"eslint": "^7.22.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte3": "^3.1.0",
