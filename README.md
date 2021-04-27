@@ -1,5 +1,9 @@
 # MIPUTO (Milano Public Toilets)
 
-App to search public toilets in Milan based on https://dati.comune.milano.it/it/dataset/ds630-servizi-igienici-pubblici (not updated and not usable API so I saved the geojson file).
+App to search public toilets in Milan based on https://dati.comune.milano.it/it/dataset/ds630-servizi-igienici-pubblici.
+
+"cors-proxy-server" => To solve cors issue;
+
+> DEV --> Run devWithProxy script to start proxy on port 9090 and svelte-kit dev with concurrently.
 
 Built with [SvelteKit](https://kit.svelte.dev/)
