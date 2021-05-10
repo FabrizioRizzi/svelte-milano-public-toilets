@@ -1,30 +1,25 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte';
-	import NumericInput from '$lib/NumericInput.svelte';
+	import MunicipioButtons from '$lib/MunicipioButtons.svelte';
 	import Toilet from '$lib/Toilet.svelte';
 	import type { PublicToilet } from 'src/interfaces';
 
-	let municipio: number;
-
-	const loadJSON = async () => {
+	const loadJSON = async (municipio) => {
 		try {
 			const res = await fetch(
 				'http://localhost:9090/https://dati.comune.milano.it/dataset/b36a93df-83fc-4966-babb-e415c47d3ac7/resource/ffd34707-efeb-491b-96c9-c43ef31295ec/download/ds630_servizi_igienici_pubblici_final.geojson'
 			);
 			const json = await res.json();
-			const filteredResults: PublicToilet[] = municipio
-				? json.features.filter((toilet) => toilet.properties.MUNICIPIO === municipio.toString())
-				: json.features;
-			return filteredResults;
+			return json.features.filter((toilet) => toilet.properties.MUNICIPIO === municipio.toString());
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-	let promise = loadJSON();
+	let promise : Promise<PublicToilet[]>;
 
-	function handleClick() {
-		promise = loadJSON();
+	function loadToilets(municipio) {
+		promise = loadJSON(municipio);
 	}
 </script>
 
@@ -35,25 +30,39 @@
 <main>
 	<Header />
 
-	<NumericInput bind:value={municipio} min=0 max=9 />
+	<div class="HomeContainer">
+		<div class="Map">
+			<img src="/Milano.png" usemap="#workmap" alt="MilanMap" />
+		</div>
 
-	<button on:click={handleClick}>Cerca Municipio</button>
-	
-  {#await promise}
-		<p>...waiting</p>
-	{:then toilets}
-		{#each toilets as toilet}
-			<Toilet {toilet} />
-		{/each}
-	{:catch error}
-		<p style="color: red">{error.message}</p>
-	{/await}
-  
+		<div class="Toilets">
+      <MunicipioButtons handleClick={loadToilets} />
+
+			{#await promise}
+				<p>...waiting</p>
+			{:then toilets}
+				{#if toilets}
+					{#each toilets as toilet}
+						<Toilet {toilet} />
+					{/each}
+				{/if}
+			{:catch error}
+				<p style="color: red">{error.message}</p>
+			{/await}
+		</div>
+	</div>
 </main>
 
 <style lang="scss">
 	main {
 		text-align: center;
 		margin: 0 auto;
+	}
+  .HomeContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  }
+	.Map img {
+    width: 100%;
 	}
 </style>

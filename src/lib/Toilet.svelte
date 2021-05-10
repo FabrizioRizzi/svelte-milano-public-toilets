@@ -11,13 +11,12 @@
 </div>
 
 <style>
-  .Toilet {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    border-bottom: 1px solid;
-  }
-
-  .Toilet:hover {
-    background-color: lightgrey;
-  }
+	.Toilet {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		border-bottom: 1px solid;
+	}
+	.Toilet:hover {
+		background-color: lightgrey;
+	}
 </style>
