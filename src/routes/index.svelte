@@ -5,20 +5,18 @@
 	import type { PublicToilet } from 'src/interfaces';
 	import { Loader } from '@googlemaps/js-api-loader';
 
+	let map: google.maps.Map;
+
 	const loader = new Loader({
 		apiKey: 'apikey',
-		version: 'weekly'
+		version: 'weekly',
+		libraries: ['places']
 	});
-
-	let map;
 
 	loader.load().then(() => {
 		map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
 			zoom: 12,
-			center: {
-				lat: 45.464664,
-				lng: 9.18854
-			}
+			center: { lat: 45.464664, lng: 9.18854 }
 		});
 	});
 
@@ -38,9 +36,9 @@
 						lat: toilet.properties.LAT_Y_4326,
 						lng: toilet.properties.LONG_X_4326
 					},
-          title: `${toilet.properties.VIA} ${toilet.properties.LOCALITA}`,
+					title: `${toilet.properties.VIA} ${toilet.properties.LOCALITA}`,
 					map,
-          icon: '/wc-chimico.png',
+					icon: '/wc-chimico.png'
 				});
 			});
 
@@ -68,8 +66,6 @@
 		<div class="Map">
 			<img src="/Milano.png" usemap="#workmap" alt="MilanMap" />
 		</div>
-
-		<div id="map" />
 		<div class="Toilets">
 			<MunicipioButtons handleClick={loadToilets} />
 
@@ -86,6 +82,9 @@
 			{/await}
 		</div>
 	</div>
+<div>
+  <div id="map" class="GoogleMaps" />
+</div>
 </main>
 
 <style lang="scss">
@@ -95,9 +94,14 @@
 	}
 	.HomeContainer {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    overflow: hidden;
 	}
 	.Map img {
 		width: 100%;
 	}
+  .GoogleMaps {
+    width: 99vw;
+    height: 100vh;
+  }
 </style>
