@@ -8,4 +8,4 @@ App to search public toilets in Milan based on https://dati.comune.milano.it/it/
 
 Built with [SvelteKit](https://kit.svelte.dev/)
 
-PS. To load google maps retieve a valid API key at https://console.cloud.google.com/
+PS. To load google maps retrieve a valid API key at https://console.cloud.google.com/
